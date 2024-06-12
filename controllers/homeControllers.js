@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import UserModel from "../models/User.js"
+import TasksModel from "../models/Tasks.js"
 import {validationResult} from "express-validator"
 import {redisClient} from "../utils/sessions.js"
 import jwt from "jsonwebtoken"; 
@@ -260,6 +261,7 @@ async function deleteUserController(req, res){
     try{
         let userId = req.userId;
         await UserModel.findByIdAndDelete(userId);
+        await TasksModel.deleteMany({userId});
         await deleteSession(req.sessionStore, req.sessionID);
         await redisClient.del(userId);
         res.status(200).json({errors : [], success : {msg : "user deleted!"}});

@@ -155,7 +155,7 @@ description : fetch tasks by pagination
 async function getTasksByPaginationController(req, res){
     try{
         const { limit, skip } = req.query;
-        const tasks = await TasksModel.find().skip(skip).limit(limit);
+        const tasks = await TasksModel.find().sort({ $natural: 1 }).skip(skip).limit(limit);
         return res.status(200).json({success : {msg : "task successfully fetched", tasks : tasks}});
     }catch(error){
         console.log(error);

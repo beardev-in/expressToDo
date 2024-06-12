@@ -21,11 +21,14 @@ const userSchema = new mongoose.Schema({
   avatar : {
     type: String
   },
-  tasks: [String],
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task' 
+  }]
 });
 
 const UserModel = new mongoose.model(
-  "user",
+  "User",
   userSchema,
   "users"
 );

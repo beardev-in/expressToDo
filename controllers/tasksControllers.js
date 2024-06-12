@@ -155,8 +155,8 @@ description : fetch tasks by pagination
 async function getTasksByPaginationController(req, res){
     try{
         const { limit, skip } = req.query;
-        const tasks = await TasksModel.find().sort({ $natural: 1 }).skip(skip).limit(limit);
-        return res.status(200).json({success : {msg : "task successfully fetched", tasks : tasks}});
+        const tasks = await UserModel.findById(req.userId, { tasks: { $slice: [10, 2] }}).populate('tasks');
+        return res.status(200).json({success : {msg : "task successfully fetched", tasks : tasks.tasks}});
     }catch(error){
         console.log(error);
         res.status(500).json({errors : [{msg : "server is currently experiencing difficulties, please try again later!", path : "internalerror"}]});

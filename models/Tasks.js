@@ -21,7 +21,7 @@ const taskSchema = new mongoose.Schema({
 
 
 const TasksModel = new mongoose.model(
-  "task",
+  "Task",
   taskSchema,
   "tasks"
 );

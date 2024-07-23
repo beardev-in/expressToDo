@@ -37,10 +37,12 @@ const EditTask: React.FC<Props> = ({ task }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        updateEditTask({
+        console.log(value);
+        
+        dispatch(updateEditTask({
             ...editTask,
             [name]: value,
-        });
+        }));
     };
 
     return (
